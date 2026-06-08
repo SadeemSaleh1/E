@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Unlimited — مراجعة الاختبار النهائي</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --card: #1a2235;
+    --border: #1e2d45;
+    --u7: #3b82f6;
+    --u8: #10b981;
+    --u9: #f59e0b;
+    --u10: #ef4444;
+    --u11: #8b5cf6;
+    --u12: #06b6d4;
+    --u13: #f97316;
+    --u14: #ec4899;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --white: #ffffff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Tajawal', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top:0; z-index:100;
+    background: rgba(10,14,26,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex; align-items: center; gap: 12px;
+    overflow-x: auto;
+  }
+  nav .logo {
+    font-size: 1.1rem; font-weight: 900;
+    color: var(--white); white-space: nowrap;
+    margin-left: 8px;
+  }
+  .nav-dots { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-dot {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: none; cursor: pointer;
+    font-weight: 700; font-size: 0.7rem;
+    color: white; transition: transform 0.2s, opacity 0.2s;
+    font-family: 'Tajawal', sans-serif;
+  }
+  .nav-dot:hover { transform: scale(1.15); opacity: 0.9; }
+
+  /* HERO */
+  .hero {
+    text-align: center; padding: 60px 20px 40px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.15) 0%, transparent 70%);
+  }
+  .hero h1 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 900; color: var(--white);
+    line-height: 1.2; margin-bottom: 12px;
+  }
+  .hero p { color: var(--muted); font-size: 1rem; margin-bottom: 24px; }
+  .exam-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #1e3a5f, #1e293b);
+    border: 1px solid var(--u7);
+    border-radius: 12px; padding: 10px 20px;
+    font-size: 0.9rem; color: #93c5fd;
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar-wrap {
+    max-width: 700px; margin: 20px auto; padding: 0 20px;
+  }
+  .progress-label { display:flex; justify-content:space-between; margin-bottom: 6px; font-size: 0.85rem; color: var(--muted); }
+  .progress-track {
+    height: 6px; background: var(--border); border-radius: 10px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; width: 0%; border-radius: 10px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+    transition: width 0.5s ease;
+  }
+
+  /* UNIT CARDS */
+  .units-container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  .unit-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .unit-card:hover { transform: translateY(-2px); }
+
+  .unit-header {
+    display: flex; align-items: center; gap: 16px;
+    padding: 20px 24px; cursor: pointer;
+    user-select: none;
+  }
+  .unit-number {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 1.3rem; color: white;
+    flex-shrink: 0;
+  }
+  .unit-title-block { flex: 1; }
+  .unit-title-block h2 { font-size: 1.15rem; font-weight: 700; color: var(--white); }
+  .unit-title-block p { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+  .unit-toggle {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--border); color: var(--muted);
+    font-size: 1.2rem; transition: transform 0.3s, background 0.2s;
+  }
+  .unit-card.open .unit-toggle { transform: rotate(180deg); background: rgba(255,255,255,0.1); }
+
+  .unit-body { display: none; padding: 0 24px 24px; }
+  .unit-card.open .unit-body { display: block; }
+
+  /* SECTIONS */
+  .section { margin-bottom: 20px; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .grammar-label { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+  .vocab-label   { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+  .keyword-label { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+
+  .rule-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .rule-box h4 { font-size: 0.95rem; color: var(--white); margin-bottom: 8px; font-weight: 700; }
+  .rule-box p, .rule-box li { font-size: 0.88rem; color: var(--muted); line-height: 1.8; }
+  .rule-box ul { padding-right: 18px; }
+  .rule-box em { color: #93c5fd; font-style: normal; }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  th {
+    background: rgba(255,255,255,0.05);
+    padding: 8px 12px; text-align: right;
+    font-size: 0.8rem; color: var(--muted); font-weight: 600;
+    border: 1px solid var(--border);
+  }
+  td {
+    padding: 7px 12px; font-size: 0.85rem; color: var(--text);
+    border: 1px solid var(--border);
+  }
+  tr:hover td { background: rgba(255,255,255,0.03); }
+
+  .keyword-chip {
+    display: inline-block; background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.3);
+    border-radius: 8px; padding: 4px 10px;
+    font-size: 0.82rem; color: #fbbf24; margin: 3px;
+  }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 18px 0; }
+
+  /* QUIZ */
+  .quiz-section { margin-top: 20px; }
+  .quiz-title {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 1rem; font-weight: 700; color: var(--white);
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px; border: 1px solid var(--border);
+  }
+  .quiz-title span { font-size: 1.3rem; }
+
+  .quiz-q {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+  .quiz-q.correct { border-color: #10b981; background: rgba(16,185,129,0.05); }
+  .quiz-q.wrong   { border-color: #ef4444; background: rgba(239,68,68,0.05); }
+
+  .quiz-q p { font-size: 0.9rem; color: var(--text); margin-bottom: 12px; font-weight: 500; }
+  .options { display: grid; gap: 8px; }
+  .option-btn {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 14px;
+    color: var(--text); font-size: 0.85rem;
+    text-align: right; cursor: pointer;
+    transition: all 0.2s; font-family: 'Tajawal', sans-serif;
+  }
+  .option-btn:hover:not(:disabled) { background: rgba(255,255,255,0.08); border-color: #475569; }
+  .option-btn.selected-correct { background: rgba(16,185,129,0.15); border-color: #10b981; color: #34d399; }
+  .option-btn.selected-wrong   { background: rgba(239,68,68,0.12); border-color: #ef4444; color: #f87171; }
+  .option-btn.reveal-correct   { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.5); color: #6ee7b7; }
+  .option-btn:disabled { cursor: default; }
+
+  .feedback-msg {
+    font-size: 0.82rem; margin-top: 8px; padding: 6px 10px;
+    border-radius: 6px; display: none;
+  }
+  .feedback-msg.show { display: block; }
+  .feedback-msg.correct { background: rgba(16,185,129,0.1); color: #34d399; }
+  .feedback-msg.wrong   { background: rgba(239,68,68,0.1); color: #f87171; }
+
+  .quiz-controls { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  .btn-check, .btn-reset {
+    padding: 10px 20px; border-radius: 10px;
+    border: none; cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    transition: all 0.2s;
+  }
+  .btn-check {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+  }
+  .btn-check:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(59,130,246,0.4); }
+  .btn-reset {
+    background: var(--border); color: var(--muted);
+  }
+  .btn-reset:hover { background: #2d3748; color: var(--text); }
+
+  .quiz-score {
+    display: none; text-align: center; padding: 16px;
+    background: var(--surface); border-radius: 12px; margin-top: 12px;
+    border: 1px solid var(--border);
+  }
+  .quiz-score .score-num { font-size: 2.5rem; font-weight: 900; }
+  .quiz-score p { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+
+  /* SCROLLTOP */
+  #scrolltop {
+    position: fixed; bottom: 24px; left: 24px;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--muted); font-size: 1.2rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s, transform 0.2s;
+    z-index: 99;
+  }
+  #scrolltop.show { opacity: 1; }
+  #scrolltop:hover { transform: scale(1.1); color: var(--white); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .unit-header { padding: 16px; gap: 12px; }
+    .unit-body { padding: 0 16px 16px; }
+    th, td { padding: 6px 8px; font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">📖 English Unlimited</div>
+  <div class="nav-dots">
+    <button class="nav-dot" style="background:#3b82f6" onclick="scrollToUnit(7)">7</button>
+    <button class="nav-dot" style="background:#10b981" onclick="scrollToUnit(8)">8</button>
+    <button class="nav-dot" style="background:#f59e0b" onclick="scrollToUnit(9)">9</button>
+    <button class="nav-dot" style="background:#ef4444" onclick="scrollToUnit(10)">10</button>
+    <button class="nav-dot" style="background:#8b5cf6" onclick="scrollToUnit(11)">11</button>
+    <button class="nav-dot" style="background:#06b6d4" onclick="scrollToUnit(12)">12</button>
+    <button class="nav-dot" style="background:#f97316" onclick="scrollToUnit(13)">13</button>
+    <button class="nav-dot" style="background:#ec4899" onclick="scrollToUnit(14)">14</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>مراجعة الاختبار النهائي 🎓</h1>
+  <p>الوحدات 7 – 14 | Grammar · Vocabulary · Keywords · Phonics</p>
+  <div class="exam-badge">📅 الثلاثاء 23/12/1447 — الفترة الأولى الساعة 8 صباحاً</div>
+</div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-label"><span>تقدمك</span><span id="prog-txt">0 / 8 وحدات</span></div>
+  <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+</div>
+
+<div class="units-container">
+
+<!-- ==================== UNIT 7 ==================== -->
+<div class="unit-card" id="unit7">
+  <div class="unit-header" onclick="toggleUnit(7)">
+    <div class="unit-number" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">7</div>
+    <div class="unit-title-block">
+      <h2>Unit 7 — City Life</h2>
+      <p>will/might/may · Real Conditionals · Directions · will (keyword)</p>
+    </div>
+    <div class="unit-toggle">▼</div>
+  </div>
+  <div class="unit-body">
+
+    <div class="section">
+      <div class="section-label grammar-label">✦ Grammar</div>
+      <div class="rule-box">
+        <h4>will / might / may — Predictions</h4>
+        <table><tr><th>يقين (sure)</th><th>غير متأكد</th><th>يقين مستقبل</th></tr>
+        <tr><td>won't</td><td>might / may</td><td>will probably / will</td></tr></table>
+        <p style="margin-top:8px">مثال: <em>Cities will probably stop growing. Energy may become too expensive.</em></p>
+      </div>
+      <div class="rule-box">
+        <h4>Real Conditionals — جمل الشرط الحقيقي</h4>
+        <p><em>If + present → will / might / should + infinitive</em></p>
+        <ul>
+          <li><em>If you visit the park, you might not find them all!</em></li>
+          <li><em>If you visit during the working week, you should avoid the crowds.</em></li>
+          <li><em>If you are interested in perfume, you will love the frankincense trees.</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label vocab-label">✦ Vocabulary</div>
+      <div class="rule-box">
+        <h4>The Environment</h4>
+        <div>
+          <span class="keyword-chip">clean / green</span><span class="keyword-chip">climate</span><span class="keyword-chip">flooding</span><span class="keyword-chip">gas</span><span class="keyword-chip">oil</span><span class="keyword-chip">polluted</span><span class="keyword-chip">sea levels</span><span class="keyword-chip">traffic</span><span class="keyword-chip">transport</span>
+        </div>
+      </div>
+      <div class="rule-box">
+        <h4>Giving Directions</h4>
+        <ul>
+          <li>Go out of here and turn left/right</li>
+          <li>Go down to the roundabout</li>
+          <li>Keep walking / Go past the Post Office</li>
+          <li>On your right / On your left</li>
+          <li>Go along... for about 500 metres</li>
+        </ul>
+      </div>
+      <div class="rule-box">
+        <h4>Getting Tourist Information</h4>
+        <ul>
+          <li><em>I'm looking for</em> somewhere to stay</li>
+          <li><em>Do you organise</em> tours of the city?</li>
+          <li><em>Have you got</em> a map?</li>
+          <li><em>Can you recommend</em> some things to see?</li>
+          <li><em>Do you have any information about</em> museums?</li>
+          <li><em>Is it open</em> every day?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label keyword-label">★ Keyword: will</div>
+      <div class="rule-box">
+        <table>
+          <tr><th>الاستخدام</th><th>مثال</th></tr>
+          <tr><td>Predictions (تنبؤات)</td><td><em>Cities will have many centres</em></td></tr>
+          <tr><td>Offers (عروض)</td><td><em>I'll do that for you</em></td></tr>
+          <tr><td>Promises (وعود)</td><td><em>I'll give her the message</em></td></tr>
+          <tr><td>Requests (طلبات)</td><td><em>I'll take these postcards, please</em></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label" style="background:rgba(139,92,246,0.15);color:#c4b5fd;border:1px solid rgba(139,92,246,0.3)">🔤 Phonics — ui / uy</div>
+      <div class="rule-box">
+        <table><tr><th>/ɪ/</th><th>/aɪ/</th><th>/uː/</th></tr>
+        <tr><td>build</td><td>buy, guy</td><td>fruit, juice, suit</td></tr></table>
+        <p style="margin-top:8px"><em>ui</em> في وسط الكلمة — <em>uy</em> في نهاية الكلمة</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="quiz-section">
+      <div class="quiz-title"><span>🧠</span> اختبر نفسك — Unit 7</div>
+      <div id="quiz7"></div>
+      <div class="quiz-controls">
+        <button class="btn-check" onclick="checkQuiz(7)">تحقق من الإجابات ✓</button>
+        <button class="btn-reset" onclick="resetQuiz(7)">إعادة ↺</button>
+      </div>
+      <div class="quiz-score" id="score7"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== UNIT 8 ==================== -->
+<div class="unit-card" id="unit8">
+  <div class="unit-header" onclick="toggleUnit(8)">
+    <div class="unit-number" style="background:linear-gradient(135deg,#10b981,#059669)">8</div>
+    <div class="unit-title-block">
+      <h2>Unit 8 — Mystery Objects</h2>
+      <p>some/any · Passives · Describing Objects · Keyword: by</p>
+    </div>
+    <div class="unit-toggle">▼</div>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <div class="section-label grammar-label">✦ Grammar</div>
+      <div class="rule-box">
+        <h4>some / any</h4>
+        <table>
+          <tr><th>الجملة</th><th>نستخدم</th></tr>
+          <tr><td>Positive (+)</td><td><em>some</em></td></tr>
+          <tr><td>Negative (-)</td><td><em>any</em></td></tr>
+          <tr><td>Questions (لا نعرف الجواب)</td><td><em>any</em></td></tr>
+          <tr><td>Questions (نتوقع yes)</td><td><em>some</em></td></tr>
+        </table>
+        <p style="margin-top:8px"><em>There are some second-hand stalls. / We don't have any clothes.</em></p>
+      </div>
+      <div class="rule-box">
+        <h4>Passives — المبني للمجهول</h4>
+        <table>
+          <tr><th>Present Passive</th><th>Past Passive</th></tr>
+          <tr><td>am/is/are + past participle</td><td>was/were + past participle</td></tr>
+          <tr><td><em>The pages are illustrated</em></td><td><em>It was discovered in 1912</em></td></tr>
+          <tr><td><em>Farsi is spoken in Iran</em></td><td><em>Alaska was sold to the USA</em></td></tr>
+        </table>
+        <p style="margin-top:8px">نستخدم المبني للمجهول لما نهتم بالحدث أكثر من الفاعل</p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label vocab-label">✦ Vocabulary</div>
+      <div class="rule-box">
+        <h4>Describing Objects — وصف الأشياء</h4>
+        <ul>
+          <li><strong>Colour:</strong> light yellow, dark blue</li>
+          <li><strong>Material:</strong> clay, metal, wood, leather, plastic, stone, cotton, glass, paper</li>
+          <li><strong>Size:</strong> 25 by 18 cm, about 15 cm tall, weighs 40g</li>
+          <li><em>It's made of... / It has wings like... / It's small but thick</em></li>
+        </ul>
+      </div>
+      <div class="rule-box">
+        <h4>Talking about a possession</h4>
+        <ul>
+          <li><em>I think my favourite thing is my TV</em></li>
+          <li><em>I need it for work</em></li>
+          <li><em>I've had it since I was five</em></li>
+          <li><em>It was given to me by my mother</em></li>
+          <li><em>It just reminds me of those days</em></li>
+          <li><em>I absolutely love it because it is like a mosaic</em></li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label keyword-label">★ Keyword: by</div>
+      <div class="rule-box">
+        <table>
+          <tr><th>A — who? (by a person)</th><th>B — how? (by noun/-ing)</th><th>C — no later than</th><th>D — next to</th></tr>
+          <tr><td>by Alessandro Volta</td><td>by taxi / by card</td><td>by two o'clock</td><td>by the park</td></tr>
+          <tr><td>by Wilfred Voynich</td><td>by putting your feet on the ice</td><td>by Friday</td><td>by the sea</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label" style="background:rgba(139,92,246,0.15);color:#c4b5fd;border:1px solid rgba(139,92,246,0.3)">🔤 Phonics — ow</div>
+      <div class="rule-box">
+        <table><tr><th>/aʊ/ (now)</th><th>/əʊ/ (show)</th></tr>
+        <tr><td>now, down, shower, how, town, vowel</td><td>show, yellow, known, follow, window</td></tr></table>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="quiz-section">
+      <div class="quiz-title"><span>🧠</span> اختبر نفسك — Unit 8</div>
+      <div id="quiz8"></div>
+      <div class="quiz-controls">
+        <button class="btn-check" onclick="checkQuiz(8)">تحقق من الإجابات ✓</button>
+        <button class="btn-reset" onclick="resetQuiz(8)">إعادة ↺</button>
+      </div>
+      <div class="quiz-score" id="score8"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== UNIT 9 ==================== -->
+<div class="unit-card" id="unit9">
+  <div class="unit-header" onclick="toggleUnit(9)">
+    <div class="unit-number" style="background:linear-gradient(135deg,#f59e0b,#d97706)">9</div>
+    <div class="unit-title-block">
+      <h2>Unit 9 — Feelings & News</h2>
+      <p>Present Perfect · Extreme Adjectives · Reactions · Keyword: just</p>
+    </div>
+    <div class="unit-toggle">▼</div>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <div class="section-label grammar-label">✦ Grammar</div>
+      <div class="rule-box">
+        <h4>Present Perfect — giving news (نتيجة حالية)</h4>
+        <p><em>have/has + past participle</em> → الفعل انتهى لكن له نتيجة الآن</p>
+        <table><tr><th>الجملة</th><th>النتيجة</th></tr>
+        <tr><td><em>I've bought you a present</em></td><td>Here is your present</td></tr>
+        <tr><td><em>She's just had a baby</em></td><td>My sister has a child now</td></tr>
+        <tr><td><em>I've found a new job!</em></td><td>I have a new job now</td></tr></table>
+      </div>
+      <div class="rule-box">
+        <h4>Present Perfect — Have you ever / recently / How long</h4>
+        <ul>
+          <li><em>Have you ever ridden a camel or an elephant?</em></li>
+          <li><em>Have you bought anything nice recently?</em></li>
+          <li><em>How long have you known your closest friend?</em></li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label vocab-label">✦ Vocabulary</div>
+      <div class="rule-box">
+        <h4>Extreme Adjectives</h4>
+        <table>
+          <tr><th>عادي</th><th>شديد (extreme)</th><th>عادي</th><th>شديد</th></tr>
+          <tr><td>angry</td><td>furious</td><td>hot</td><td>boiling</td></tr>
+          <tr><td>cold</td><td>freezing</td><td>hungry</td><td>starving</td></tr>
+          <tr><td>frightened</td><td>terrified</td><td>pleased</td><td>delighted</td></tr>
+          <tr><td>tired</td><td>exhausted</td><td>surprised</td><td>amazed</td></tr>
+          <tr><td>sure</td><td>positive</td><td colspan="2"></td></tr>
+        </table>
+        <p style="margin-top:8px"><em>very</em> مع العادية | <em>absolutely</em> مع الشديدة | <em>really</em> مع الاثنتين</p>
+      </div>
+      <div class="rule-box">
+        <h4>Reacting to news / Thanking / Apologising</h4>
+        <table>
+          <tr><th>Good news</th><th>Bad news</th><th>Thanking</th><th>Apologising</th></tr>
+          <tr><td>That's great!</td><td>I'm sorry to hear that.</td><td>Thanks very much.</td><td>I'd like to apologise.</td></tr>
+          <tr><td>Congratulations!</td><td>That's not good.</td><td>Cheers.</td><td>I'm really sorry.</td></tr>
+          <tr><td>Well done!</td><td></td><td>That's very kind of you.</td><td>Sorry.</td></tr>
+        </table>
+      </div>
+      <div class="rule-box">
+        <h4>Asking for news</h4>
+        <ul>
+          <li><em>What have you been up to?</em></li>
+          <li><em>How is it? / How's Mani?</em></li>
+          <li><em>Anyway, what's new with you?</em></li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label keyword-label">★ Keyword: just</div>
+      <div class="rule-box">
+        <table><tr><th>المعنى</th><th>مثال</th><th>الصيغة</th></tr>
+        <tr><td>a short time ago</td><td><em>I've just started a new job</em></td><td>present perfect</td></tr>
+        <tr><td>only / simply</td><td><em>just two centimetres</em></td><td>أي صيغة</td></tr></table>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label" style="background:rgba(139,92,246,0.15);color:#c4b5fd;border:1px solid rgba(139,92,246,0.3)">🔤 Phonics — ge / dge / age</div>
+      <div class="rule-box">
+        <table><tr><th>/dʒ/ غير مضغوط</th><th>/ɪdʒ/ مضغوط</th></tr>
+        <tr><td>age, huge, village, change, arrange, orange, page, large</td><td>bridge, judge, average, language, luggage, message, fridge</td></tr></table>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="quiz-section">
+      <div class="quiz-title"><span>🧠</span> اختبر نفسك — Unit 9</div>
+      <div id="quiz9"></div>
+      <div class="quiz-controls">
+        <button class="btn-check" onclick="checkQuiz(9)">تحقق من الإجابات ✓</button>
+        <button class="btn-reset" onclick="resetQuiz(9)">إعادة ↺</button>
+      </div>
+      <div class="quiz-score" id="score9"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== UNIT 10 ==================== -->
+<div class="unit-card" id="unit10">
+  <div class="unit-header" onclick="toggleUnit(10)">
+    <div class="unit-number" style="background:linear-gradient(135deg,#ef4444,#b91c1c)">10</div>
+    <div class="unit-title-block">
+      <h2>Unit 10 — Travel & Plans</h2>
+      <p>Future forms · Hotel vocabulary · Arranging · Keyword: make</p>
+    </div>
+    <div class="unit-toggle">▼</div>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <div class="section-label grammar-label">✦ Grammar — Future Plans & Arrangements</div>
+      <div class="rule-box">
+        <table>
+          <tr><th>الصيغة</th><th>الاستخدام</th><th>مثال</th></tr>
+          <tr><td>Present progressive</td><td>مواعيد مع أشخاص</td><td><em>What are you doing on Friday?</em></td></tr>
+          <tr><td>be going to + inf</td><td>خطط شخصية</td><td><em>I'm going to be there next month</em></td></tr>
+          <tr><td>Present simple</td><td>مواعيد ثابتة (طيران/قطار)</td><td><em>My flight leaves at 11.15</em></td></tr>
+          <tr><td>am/is/are + adj</td><td>الحالة</td><td><em>Friday's difficult. I'm free Wednesday</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label vocab-label">✦ Vocabulary</div>
+      <div class="rule-box">
+        <h4>Staying in a hotel</h4>
+        <div>
+          <span class="keyword-chip">check-out</span><span class="keyword-chip">reservation</span><span class="keyword-chip">book a room</span><span class="keyword-chip">included</span><span class="keyword-chip">extra charge</span><span class="keyword-chip">check-in</span>
+        </div>
+        <ul style="margin-top:10px">
+          <li><em>I'd like to book a single room for three nights</em></li>
+          <li><em>I have a reservation. My name's...</em></li>
+          <li><em>What time is breakfast? / What's the check-out time?</em></li>
+        </ul>
+      </div>
+      <div class="rule-box">
+        <h4>Arranging to meet up</h4>
+        <ul>
+          <li><strong>Checking:</strong> <em>Are you doing anything tomorrow? / Do you fancy having lunch?</em></li>
+          <li><strong>Date/time:</strong> <em>Can you make Friday? / Can you do the morning?</em></li>
+          <li><strong>Cancelling:</strong> <em>I'm sorry but I can't make it. / Can we postpone?</em></li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label keyword-label">★ Keyword: make</div>
+      <div class="rule-box">
+        <table>
+          <tr><th>A — money</th><th>B — food/drink</th><th>C — other</th></tr>
+          <tr><td>make money, make a profit</td><td>make dinner, make a snack, make a meal</td><td>make a phone call, make a list, make friends, make mistakes, make repayments</td></tr>
+        </table>
+        <p style="margin-top:8px"><em>make + object + verb:</em> <em>laughter makes people yawn</em></p>
+        <p><em>make + object + adjective:</em> <em>shopping makes them happy</em></p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label" style="background:rgba(139,92,246,0.15);color:#c4b5fd;border:1px solid rgba(139,92,246,0.3)">🔤 Phonics — au / aw</div>
+      <div class="rule-box">
+        <p>كلها تُنطق /ɔː/</p>
+        <div><span class="keyword-chip">laundry</span><span class="keyword-chip">sauna</span><span class="keyword-chip">saw</span><span class="keyword-chip">awful</span><span class="keyword-chip">autumn</span><span class="keyword-chip">daughter</span><span class="keyword-chip">exhausted</span></div>
+        <p style="margin-top:8px">استثناءات: laugh, aunt, Australia, sausage → نطق مختلف</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="quiz-section">
+      <div class="quiz-title"><span>🧠</span> اختبر نفسك — Unit 10</div>
+      <div id="quiz10"></div>
+      <div class="quiz-controls">
+        <button class="btn-check" onclick="checkQuiz(10)">تحقق من الإجابات ✓</button>
+        <button class="btn-reset" onclick="resetQuiz(10)">إعادة ↺</button>
+      </div>
+      <div class="quiz-score" id="score10"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== UNIT 11 ==================== -->
+<div class="unit-card" id="unit11">
+  <div class="unit-header" onclick="toggleUnit(11)">
+    <div class="unit-number" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">11</div>
+    <div class="unit-title-block">
+      <h2>Unit 11 — Spaces & Homes</h2>
+      <p>would (imaginary) · Homes · Pros & cons · Keyword: there</p>
+    </div>
+    <div class="unit-toggle">▼</div>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <div class="section-label grammar-label">✦ Grammar — would (مواقف خيالية)</div>
+      <div class="rule-box">
+        <p><em>'d / would + infinitive</em> — نتكلم عن شيء غير حقيقي أو خيالي</p>
+        <ul>
+          <li><em>My ideal home would be like the place I live now</em></li>
+          <li><em>That would be nice</em></li>
+          <li><em>I'd like to have a big kitchen</em></li>
+          <li><em>It would have really big windows</em></li>
+        </ul>
+        <p style="margin-top:8px"><em>'d = would</em> | <em>wouldn't = would not</em></p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label vocab-label">✦ Vocabulary</div>
+      <div class="rule-box">
+        <h4>Describing Homes</h4>
+        <ul>
+          <li><strong>Outdoor:</strong> barbecue, pool, garden, balcony, parking</li>
+          <li><strong>Indoor:</strong> fireplace, air conditioning, wooden floors, living room</li>
+          <li><strong>Describing:</strong> comfortable, spacious, modern, traditional, large, cool, warm</li>
+          <li><strong>Location:</strong> <em>close to / views of / faces north / just around the corner</em></li>
+        </ul>
+      </div>
+      <div class="rule-box">
+        <h4>Pros and Cons (إيجابيات وسلبيات)</h4>
+        <ul>
+          <li><em>The best/good thing about Dubai is, it's so cosmopolitan</em></li>
+          <li><em>The worst/bad thing about Dubai is, there's too much traffic</em></li>
+          <li><em>The trouble is, it's quite expensive</em></li>
+          <li><em>The thing is, Dubai is too popular</em></li>
+        </ul>
+      </div>
+      <div class="rule-box">
+        <h4>Solving Problems</h4>
+        <ul>
+          <li><em>Maybe she should...</em></li>
+          <li><em>Could she organise her day so she doesn't see...?</em></li>
+          <li><em>I'd probably...</em></li>
+          <li><em>Would it be possible to...?</em></li>
+          <li><em>I'd tell her to move</em></li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label keyword-label">★ Keyword: there</div>
+      <div class="rule-box">
+        <table>
+          <tr><th>there</th><th>it / they</th></tr>
+          <tr><td>لإدخال فكرة جديدة<br><em>There's a café round the corner</em></td><td>للرجوع لشيء ذُكر<br><em>It opens at ten</em></td></tr>
+          <tr><td><em>There are lots of lovely parks</em></td><td><em>They're usually free</em></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="quiz-section">
+      <div class="quiz-title"><span>🧠</span> اختبر نفسك — Unit 11</div>
+      <div id="quiz11"></div>
+      <div class="quiz-controls">
+        <button class="btn-check" onclick="checkQuiz(11)">تحقق من الإجابات ✓</button>
+        <button class="btn-reset" onclick="resetQuiz(11)">إعادة ↺</button>
+      </div>
+      <div class="quiz-score" id="score11"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== UNIT 12 ==================== -->
+<div class="unit-card" id="unit12">
+  <div class="unit-header" onclick="toggleUnit(12)">
+    <div class="unit-number" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">12</div>
+    <div class="unit-title-block">
+      <h2>Unit 12 — Countries & People</h2>
+      <p>Infinitives & Gerunds · Countries · Life achievements · Keyword: to</p>
+    </div>
+    <div class="unit-toggle">▼</div>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <div class="section-label grammar-label">✦ Grammar — Infinitives & Gerunds</div>
+      <div class="rule-box">
+        <table>
+          <tr><th>+ infinitive (to do)</th><th>+ gerund (-ing)</th></tr>
+          <tr><td>بعد صفات: difficult <em>to become</em></td><td>بعد حروف جر: interested <em>in watching</em></td></tr>
+          <tr><td>بعد أفعال: agree, decide, hope, learn, need, plan, want, would like</td><td>بعد أفعال: enjoy, finish, practise, suggest, can't stand, miss, dislike</td></tr>
+        </table>
+        <p style="margin-top:8px">أمثلة: <em>He wanted to study hotel management. / He enjoyed playing basketball. / He became interested in sumo from watching it.</em></p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label vocab-label">✦ Vocabulary</div>
+      <div class="rule-box">
+        <h4>Describing a Country</h4>
+        <ul>
+          <li><em>The capital is... / The population is just under two million</em></li>
+          <li><em>The official languages are...</em></li>
+          <li><em>It's a member of the UN / It makes its money from oil and gas</em></li>
+          <li><em>In the past it was governed by Britain / It became independent in 1978</em></li>
+          <li><em>It has elections every four years / It's famous for its...</em></li>
+        </ul>
+      </div>
+      <div class="rule-box">
+        <h4>Life and Achievements</h4>
+        <ul>
+          <li><em>He was born in Hawaii</em></li>
+          <li><em>He became interested in sumo from watching it on TV</em></li>
+          <li><em>He flew to Japan to join Azumazeki's stable</em></li>
+          <li><em>He was the first foreigner to become a yokozuna in 1500 years</em></li>
+          <li><em>He retired in 2001</em></li>
+        </ul>
+      </div>
+      <div class="rule-box">
+        <h4>Expressions with know</h4>
+        <ul>
+          <li><em>Do you know anything about Riyadh?</em></li>
+          <li><em>I don't know much about it</em></li>
+          <li><em>Well, I know that he was born in Riyadh in March 1955</em></li>
+          <li><em>I don't really know for sure, but...</em></li>
+          <li><em>As far as I know, Riyadh also has...</em></li>
+          <li><em>You probably know that it's the capital of Saudi Arabia</em></li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label keyword-label">★ Keyword: to</div>
+      <div class="rule-box">
+        <table>
+          <tr><th>A — verb + to</th><th>B — adjective + to</th><th>C — noun + to</th></tr>
+          <tr><td>plan to go, need to buy</td><td>difficult to do, ready to order</td><td>a good place to visit, the best way to learn</td></tr>
+        </table>
+        <p style="margin-top:8px">كـ preposition: <em>Have you ever sent a text message to the wrong person?</em></p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label" style="background:rgba(139,92,246,0.15);color:#c4b5fd;border:1px solid rgba(139,92,246,0.3)">🔤 Phonics — ent / ant</div>
+      <div class="rule-box">
+        <p><em>-ent</em> أكثر شيوعاً من <em>-ant</em></p>
+        <p>بعد أصوات /f/, /g/, /k/, /t/ → نستخدم <em>-ant</em> غالباً</p>
+        <div style="margin-top:8px"><span class="keyword-chip">accountant</span><span class="keyword-chip">apartment</span><span class="keyword-chip">assistant</span><span class="keyword-chip">different</span><span class="keyword-chip">excellent</span><span class="keyword-chip">independent</span><span class="keyword-chip">moment</span><span class="keyword-chip">monument</span><span class="keyword-chip">instant</span><span class="keyword-chip">present</span></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="quiz-section">
+      <div class="quiz-title"><span>🧠</span> اختبر نفسك — Unit 12</div>
+      <div id="quiz12"></div>
+      <div class="quiz-controls">
+        <button class="btn-check" onclick="checkQuiz(12)">تحقق من الإجابات ✓</button>
+        <button class="btn-reset" onclick="resetQuiz(12)">إعادة ↺</button>
+      </div>
+      <div class="quiz-score" id="score12"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== UNIT 13 ==================== -->
+<div class="unit-card" id="unit13">
+  <div class="unit-header" onclick="toggleUnit(13)">
+    <div class="unit-number" style="background:linear-gradient(135deg,#f97316,#ea580c)">13</div>
+    <div class="unit-title-block">
+      <h2>Unit 13 — Technology & Change</h2>
+      <p>used to / would · Telephone · Comparing past & present · Keyword: time</p>
+    </div>
+    <div class="unit-toggle">▼</div>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <div class="section-label grammar-label">✦ Grammar — used to / would</div>
+      <div class="rule-box">
+        <table>
+          <tr><th></th><th>used to ✓</th><th>would ✓</th></tr>
+          <tr><td>Actions (أفعال)</td><td>✓</td><td>✓</td></tr>
+          <tr><td>States (حالات: believe, be, have, live, think, like, hate)</td><td>✓</td><td>✗</td></tr>
+        </table>
+        <p style="margin-top:8px">✓ <em>I used to play / I'd play in the woods</em></p>
+        <p>✓ <em>I used to like swimming</em> &nbsp;|&nbsp; ✗ <em>~~I'd like swimming~~</em></p>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label vocab-label">✦ Vocabulary</div>
+      <div class="rule-box">
+        <h4>Telephone Expressions</h4>
+        <ul>
+          <li><em>Can I speak to John Andrews, please?</em></li>
+          <li><em>It's Christine, his wife.</em></li>
+          <li><em>I'm sorry, but John isn't here.</em></li>
+          <li><em>Just a moment, please.</em></li>
+          <li><em>Do you want me to take a message?</em></li>
+          <li><em>Could you ask him to call me?</em></li>
+          <li><em>I'll call you back later.</em></li>
+          <li><em>Is this a good time to talk?</em></li>
+        </ul>
+      </div>
+      <div class="rule-box">
+        <h4>Comparing Past and Present</h4>
+        <table>
+          <tr><th>Now</th><th>Before</th><th>Change</th></tr>
+          <tr><td>I arrange to meet by email</td><td>I used to call them on the phone</td><td>these days / than they used to</td></tr>
+          <tr><td>I go to Google News</td><td>I'd check the TV news</td><td>nowadays / than there used to be</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label keyword-label">★ Keyword: time</div>
+      <div class="rule-box">
+        <div>
+          <span class="keyword-chip">all the time</span><span class="keyword-chip">another time</span><span class="keyword-chip">any time</span><span class="keyword-chip">too much time</span><span class="keyword-chip">have a good time</span><span class="keyword-chip">your first time</span><span class="keyword-chip">on time</span><span class="keyword-chip">in a hurry</span><span class="keyword-chip">take their time</span><span class="keyword-chip">right on time</span>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label" style="background:rgba(139,92,246,0.15);color:#c4b5fd;border:1px solid rgba(139,92,246,0.3)">🔤 Phonics — ei / ey</div>
+      <div class="rule-box">
+        <table><tr><th>A /iː/ (receive)</th><th>B /eɪ/ (eight)</th></tr>
+        <tr><td>ceiling, receipt, neighbour</td><td>grey, journey, key, turkey, weigh</td></tr></table>
+        <p style="margin-top:8px">ei بعد c | ei قبل silent gh</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="quiz-section">
+      <div class="quiz-title"><span>🧠</span> اختبر نفسك — Unit 13</div>
+      <div id="quiz13"></div>
+      <div class="quiz-controls">
+        <button class="btn-check" onclick="checkQuiz(13)">تحقق من الإجابات ✓</button>
+        <button class="btn-reset" onclick="resetQuiz(13)">إعادة ↺</button>
+      </div>
+      <div class="quiz-score" id="score13"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== UNIT 14 ==================== -->
+<div class="unit-card" id="unit14">
+  <div class="unit-header" onclick="toggleUnit(14)">
+    <div class="unit-number" style="background:linear-gradient(135deg,#ec4899,#be185d)">14</div>
+    <div class="unit-title-block">
+      <h2>Unit 14 — Opinions & Environment</h2>
+      <p>Unreal Conditionals · Expressing opinions · waste/save · Phonics: le/el/al/ul</p>
+    </div>
+    <div class="unit-toggle">▼</div>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <div class="section-label grammar-label">✦ Grammar — Unreal Conditionals</div>
+      <div class="rule-box">
+        <p><em>If + past simple → would + infinitive</em> — مواقف خيالية/غير حقيقية</p>
+        <ul>
+          <li><em>If I had the time, I'd learn another language.</em></li>
+          <li><em>If I had the money, I'd travel the world.</em></li>
+          <li><em>If I had the chance, I'd...</em></li>
+          <li><em>If I had more energy, I'd...</em></li>
+          <li><em>If I had a larger home, I'd...</em></li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label vocab-label">✦ Vocabulary</div>
+      <div class="rule-box">
+        <h4>Expressing and Responding to Opinions</h4>
+        <table>
+          <tr><th>Giving opinions</th><th>Disagreeing</th><th>Agreeing</th></tr>
+          <tr><td>I think... / I really feel that...</td><td>Yes, but... / Well, not really...</td><td>OK, that's a good point.</td></tr>
+          <tr><td>The thing is... / If...</td><td>Sorry, but...</td><td>Yes, exactly.</td></tr>
+          <tr><td>We all know that...</td><td>You're right, but...</td><td></td></tr>
+        </table>
+      </div>
+      <div class="rule-box">
+        <h4>waste / save</h4>
+        <ul>
+          <li><em>These ideas helped me save money.</em></li>
+          <li><em>Change to low-energy bulbs. They waste less energy.</em></li>
+          <li><em>If you turn the light off when you leave a room, you'll save energy and money.</em></li>
+          <li><em>If you share a car with friends, you'll save fuel.</em></li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-label" style="background:rgba(139,92,246,0.15);color:#c4b5fd;border:1px solid rgba(139,92,246,0.3)">🔤 Phonics — le / el / al / ul</div>
+      <div class="rule-box">
+        <p>كلها تُنطق نفس الصوت /əl/</p>
+        <div><span class="keyword-chip">people</span><span class="keyword-chip">channel</span><span class="keyword-chip">usual</span><span class="keyword-chip">awful</span><span class="keyword-chip">national</span><span class="keyword-chip">skilful</span><span class="keyword-chip">travel</span><span class="keyword-chip">simple</span><span class="keyword-chip">vowel</span><span class="keyword-chip">trouble</span><span class="keyword-chip">animal</span><span class="keyword-chip">wonderful</span><span class="keyword-chip">possible</span><span class="keyword-chip">beautiful</span><span class="keyword-chip">hospital</span></div>
+        <p style="margin-top:8px"><em>-ul</em> دايماً تقريباً في اللاحقة <em>-ful</em></p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="quiz-section">
+      <div class="quiz-title"><span>🧠</span> اختبر نفسك — Unit 14</div>
+      <div id="quiz14"></div>
+      <div class="quiz-controls">
+        <button class="btn-check" onclick="checkQuiz(14)">تحقق من الإجابات ✓</button>
+        <button class="btn-reset" onclick="resetQuiz(14)">إعادة ↺</button>
+      </div>
+      <div class="quiz-score" id="score14"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end units-container -->
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ==================== QUIZ DATA ====================
+const quizData = {
+  7: [
+    { q: "Complete: 'If you ___ the park, you might not find them all!'", opts: ["visit","visited","will visit","are visiting"], ans: 0, exp: "Real conditional: If + present simple" },
+    { q: "Which word means the sky over a city is dirty and unhealthy?", opts: ["flooding","polluted","transport","sea levels"], ans: 1, exp: "polluted = ملوث" },
+    { q: "A tourist asks: 'Have you got a ___?' (يريد خريطة)", opts: ["map","book","guide","room"], ans: 0, exp: "Have you got a map? = هل عندك خريطة؟" },
+    { q: "'It ___ be less traffic on the roads.' (I'm sure about the future)", opts: ["will","might","may","could"], ans: 0, exp: "will = متأكد من المستقبل" },
+    { q: "How do you say 'بناء' in the context of 'ui' pronunciation?", opts: ["build","buy","suit","guide"], ans: 0, exp: "build → /ɪ/ مثل بناء" },
+    { q: "Which is a promise with 'will'?", opts: ["Cities will grow.","I'll give her the message.","Energy may be expensive.","You should visit."], ans: 1, exp: "I'll give her the message = وعد" },
+    { q: "Giving directions: 'Go ___ to the roundabout.'", opts: ["down","up","around","through"], ans: 0, exp: "Go down to the roundabout" },
+    { q: "The word 'guy' has which sound?", opts: ["/uː/","/ɪ/","/aɪ/","/eɪ/"], ans: 2, exp: "guy → uy = /aɪ/ مثل buy" }
+  ],
+  8: [
+    { q: "'We don't have ___ second-hand clothes.' (negative)", opts: ["some","any","no","few"], ans: 1, exp: "جمل النفي → any" },
+    { q: "The book ___ discovered in 1912 by Wilfred Voynich. (passive past)", opts: ["is","was","were","has been"], ans: 1, exp: "Past passive: was + past participle" },
+    { q: "Complete: 'It's made ___ light yellow clay.'", opts: ["from","of","with","by"], ans: 1, exp: "made of + material" },
+    { q: "Which group is 'by Friday'?", opts: ["by a person","by how","by no later than","by next to"], ans: 2, exp: "by Friday = no later than = في موعد أقصاه" },
+    { q: "'___ you have any silver candlesticks?' (question expecting no specific answer)", opts: ["Do","Have","Some","Any"], ans: 0, exp: "Do you have any...? = سؤال بدون توقع إجابة معينة" },
+    { q: "What sound does 'show' have for 'ow'?", opts: ["/aʊ/","/əʊ/","/uː/","/ɔː/"], ans: 1, exp: "show → /əʊ/ مثل yellow, known" },
+    { q: "Which verb describes past passive? 'The book ___ written in the 20th century.'", opts: ["is","are","was","were"], ans: 2, exp: "Subject is singular → was" },
+    { q: "'I've had it ___ I was five.' (talking about possession)", opts: ["for","since","when","during"], ans: 1, exp: "since + نقطة في الوقت" }
+  ],
+  9: [
+    { q: "I'm very angry about this! = I'm absolutely ___", opts: ["furious","freezing","exhausted","starving"], ans: 0, exp: "angry → furious (extreme)" },
+    { q: "'___ you ever ridden a camel?' (present perfect)", opts: ["Do","Did","Have","Are"], ans: 2, exp: "Have you ever + past participle" },
+    { q: "Your friend got a new job. You say:", opts: ["I'm sorry to hear that.","Well done!","I'd like to apologise.","That's not good."], ans: 1, exp: "Well done! للأخبار السعيدة" },
+    { q: "'I've ___ started a new job.' (just = a short time ago)", opts: ["already","just","yet","still"], ans: 1, exp: "just + present perfect = منذ قليل" },
+    { q: "It's very cold outside! = It's absolutely ___", opts: ["freezing","cold","cool","chilly"], ans: 0, exp: "cold → freezing (extreme)" },
+    { q: "Which word uses 'ge' with /dʒ/ sound?", opts: ["bridge","judge","age","language"], ans: 2, exp: "age → /eɪdʒ/ غير مضغوط" },
+    { q: "Your friend apologises to you. You respond:", opts: ["Congratulations!","That's great!","Don't worry about it.","Well done!"], ans: 2, exp: "Don't worry / That's OK = رد على الاعتذار" },
+    { q: "'___ have you known your best friend?' (duration)", opts: ["How long","How often","When","Since"], ans: 0, exp: "How long + present perfect للمدة" }
+  ],
+  10: [
+    { q: "'My flight ___ at 11.15.' (fixed time = timetable)", opts: ["is leaving","will leave","leaves","is going to leave"], ans: 2, exp: "Present simple للمواعيد الثابتة" },
+    { q: "'I ___ to be there next month.' (personal plan)", opts: ["will","am going","am","would"], ans: 1, exp: "be going to + inf للخطط الشخصية" },
+    { q: "At the hotel: 'I have a ___. My name's...'", opts: ["reservation","booking","check-out","charge"], ans: 0, exp: "I have a reservation = عندي حجز" },
+    { q: "Which is correct with 'make'?", opts: ["make a travel","make a friend","make a mistake","make a trip"], ans: 2, exp: "make a mistake = يرتكب خطأ ✓" },
+    { q: "'___ you doing anything tomorrow?' (checking availability)", opts: ["Do","Are","Will","Were"], ans: 1, exp: "present progressive للمواعيد المستقبلية" },
+    { q: "The sound 'au' in 'laundry' = ?", opts: ["/æ/","/ɔː/","/aʊ/","/uː/"], ans: 1, exp: "au/aw → /ɔː/ مثل saw, awful" },
+    { q: "'I'm sorry but I can't ___ it tomorrow.' (cancel arrangement)", opts: ["do","make","take","have"], ans: 1, exp: "can't make it = مش قادر أحضر" },
+    { q: "'Does the hotel ___ a swimming pool?' (hotel vocab)", opts: ["have","has","include","own"], ans: 0, exp: "Does the hotel have...? = هل يوجد؟" }
+  ],
+  11: [
+    { q: "'My ideal home ___ have a large garden.' (imaginary)", opts: ["will","would","is going to","should"], ans: 1, exp: "would للمواقف الخيالية" },
+    { q: "Which is a 'pros and cons' expression?", opts: ["I'm looking for","The thing is","I've just started","Have you got"], ans: 1, exp: "The thing is... = للحديث عن إيجابية أو سلبية" },
+    { q: "'___ a café round the corner.' (introduce new idea)", opts: ["It's","There's","Here's","That's"], ans: 1, exp: "There's = يوجد (لإدخال فكرة جديدة)" },
+    { q: "The apartment has a ___. (خارجي للجلوس)", opts: ["fireplace","balcony","living room","wooden floors"], ans: 1, exp: "balcony = شرفة" },
+    { q: "'Maybe she ___ talk to the parents.' (suggestion)", opts: ["would","will","should","must"], ans: 2, exp: "Maybe she should = اقتراح" },
+    { q: "'___ it opens at ten.' (refer back to café = replace 'the café')", opts: ["There","It","They","Here"], ans: 1, exp: "it = للرجوع لشيء تم ذكره" },
+    { q: "Which describes an indoor home feature?", opts: ["barbecue","garden","fireplace","parking"], ans: 2, exp: "fireplace = مدفأة = indoor" },
+    { q: "'The worst thing about Dubai ___, there's too much traffic.'", opts: ["is","are","has","have"], ans: 0, exp: "The worst thing about X is..." }
+  ],
+  12: [
+    { q: "'He enjoyed ___ basketball.' (gerund or infinitive?)", opts: ["to play","playing","play","played"], ans: 1, exp: "enjoy + gerund (-ing)" },
+    { q: "'He wanted ___ study hotel management.'", opts: ["to","for","of","in"], ans: 0, exp: "want + to + infinitive" },
+    { q: "Qatar's economy ___ based on oil and gas.", opts: ["is","are","was","were"], ans: 0, exp: "is based on = يعتمد على (passive present)" },
+    { q: "Which 'know' expression means 'من ما أعرف'?", opts: ["I know that","You probably know","As far as I know","I don't know"], ans: 2, exp: "As far as I know = من ما أعرف" },
+    { q: "'It's ___ to do well in exams.' (adjective + infinitive)", opts: ["difficult to","difficult for","difficult of","difficult at"], ans: 0, exp: "adjective + to + infinitive" },
+    { q: "Which ending is more common, -ent or -ant?", opts: ["-ant","-ent","both equal","neither"], ans: 1, exp: "-ent أكثر شيوعاً من -ant" },
+    { q: "'She can't stand ___ in traffic.' (gerund)", opts: ["to wait","waiting","wait","waited"], ans: 1, exp: "can't stand + gerund (-ing)" },
+    { q: "'He ___ the first foreigner to achieve this.' (life achievement)", opts: ["was","is","has been","had"], ans: 0, exp: "past simple للإنجازات الماضية" }
+  ],
+  13: [
+    { q: "'When I was little, I ___ to believe spiders lived under my bed.'", opts: ["used","would","both correct","neither"], ans: 0, exp: "believe = state → used to فقط" },
+    { q: "'I ___ jump out of bed so they couldn't get me.' (past habit/action)", opts: ["used to","would","both correct","neither"], ans: 2, exp: "jump = action → يمكن used to أو would" },
+    { q: "On the phone: 'Just a ___, please.'", opts: ["minute","moment","second","time"], ans: 1, exp: "Just a moment, please. = لحظة من فضلك" },
+    { q: "'I ___ call you back later.' (telephone)", opts: ["will","would","can","should"], ans: 0, exp: "I'll call you back = سأرد عليك لاحقاً" },
+    { q: "How do you spell 'الجار' in English? (ei/ey - /iː/ sound)", opts: ["naighbour","neighbour","nieghbour","nighbour"], ans: 1, exp: "neighbour → ei بعد n في الوسط" },
+    { q: "'These days, people talk to each other less ___ they used to.'", opts: ["than","then","that","as"], ans: 0, exp: "less than they used to = أقل مما اعتادوا" },
+    { q: "Which expression with 'time' means 'في الوقت المحدد'?", opts: ["all the time","on time","any time","good time"], ans: 1, exp: "on time = في الوقت المحدد" },
+    { q: "'Could you ___ him to call me?' (telephone message)", opts: ["say","ask","tell","speak"], ans: 1, exp: "Could you ask him to...? = هل تطلب منه؟" }
+  ],
+  14: [
+    { q: "'If I ___ the time, I'd learn another language.' (unreal conditional)", opts: ["have","had","would have","has"], ans: 1, exp: "If + past simple (unreal conditional)" },
+    { q: "'I'd learn' in an unreal conditional = ?", opts: ["I will learn","I would learn","I am learning","I learned"], ans: 1, exp: "'d = would" },
+    { q: "Which expresses an opinion?", opts: ["I'm sorry to hear that.","The thing is...","Well done!","I'll be there."], ans: 1, exp: "The thing is... = للتعبير عن رأي" },
+    { q: "'Change to low-energy bulbs. They ___ less energy.'", opts: ["save","waste","use","spend"], ans: 1, exp: "waste less energy = يهدر طاقة أقل" },
+    { q: "The ending '-ful' uses which phonics ending?", opts: ["-le","-el","-al","-ul"], ans: 3, exp: "-ul دائماً تقريباً في -ful" },
+    { q: "'If you share a car, you'll ___ fuel.'", opts: ["waste","save","spend","lose"], ans: 1, exp: "save fuel = توفير الوقود" },
+    { q: "Responding to someone's opinion you agree with:", opts: ["Well, not really.","Yes, but...","OK, that's a good point.","Sorry, but..."], ans: 2, exp: "OK, that's a good point = موافق، نقطة جيدة" },
+    { q: "Which word ends with -al sound (/əl/)?", opts: ["people","channel","national","all of these"], ans: 3, exp: "كلها تُنطق /əl/ - le, el, al" }
+  ]
+};
+
+// ==================== RENDER QUIZZES ====================
+function renderQuizzes() {
+  Object.keys(quizData).forEach(unit => {
+    const container = document.getElementById('quiz' + unit);
+    if (!container) return;
+    const questions = quizData[unit];
+    let html = '';
+    questions.forEach((q, qi) => {
+      html += `<div class="quiz-q" id="qq${unit}_${qi}">
+        <p>${qi+1}. ${q.q}</p>
+        <div class="options">`;
+      q.opts.forEach((opt, oi) => {
+        html += `<button class="option-btn" id="opt${unit}_${qi}_${oi}" onclick="selectOption(${unit},${qi},${oi})">${opt}</button>`;
+      });
+      html += `</div>
+        <div class="feedback-msg" id="fb${unit}_${qi}"></div>
+      </div>`;
+    });
+    container.innerHTML = html;
+  });
+}
+
+// ==================== SELECT OPTION ====================
+const userAnswers = {};
+function selectOption(unit, qi, oi) {
+  if (!userAnswers[unit]) userAnswers[unit] = {};
+  const q = quizData[unit][qi];
+  const already = userAnswers[unit][qi] !== undefined;
+  if (already) return;
+  userAnswers[unit][qi] = oi;
+  // visual selection only (no immediate reveal)
+  const opts = document.querySelectorAll(`[id^="opt${unit}_${qi}_"]`);
+  opts.forEach(b => {
+    b.style.background = 'rgba(255,255,255,0.04)';
+    b.style.borderColor = '#1e2d45';
+    b.style.color = '#e2e8f0';
+  });
+  const btn = document.getElementById(`opt${unit}_${qi}_${oi}`);
+  btn.style.background = 'rgba(59,130,246,0.15)';
+  btn.style.borderColor = '#3b82f6';
+  btn.style.color = '#93c5fd';
+}
+
+// ==================== CHECK QUIZ ====================
+function checkQuiz(unit) {
+  const questions = quizData[unit];
+  let correct = 0;
+  questions.forEach((q, qi) => {
+    const userAns = userAnswers[unit] ? userAnswers[unit][qi] : undefined;
+    const qEl = document.getElementById(`qq${unit}_${qi}`);
+    const fbEl = document.getElementById(`fb${unit}_${qi}`);
+    const opts = document.querySelectorAll(`[id^="opt${unit}_${qi}_"]`);
+
+    opts.forEach(b => b.disabled = true);
+
+    if (userAns === undefined) {
+      qEl.classList.add('wrong');
+      fbEl.className = 'feedback-msg show wrong';
+      fbEl.textContent = `لم تجب! ✗ الإجابة الصحيحة: ${q.opts[q.ans]} — ${q.exp}`;
+    } else if (userAns === q.ans) {
+      correct++;
+      qEl.classList.add('correct');
+      document.getElementById(`opt${unit}_${qi}_${userAns}`).className = 'option-btn selected-correct';
+      fbEl.className = 'feedback-msg show correct';
+      fbEl.textContent = `✓ صحيح! — ${q.exp}`;
+    } else {
+      qEl.classList.add('wrong');
+      document.getElementById(`opt${unit}_${qi}_${userAns}`).className = 'option-btn selected-wrong';
+      document.getElementById(`opt${unit}_${qi}_${q.ans}`).className = 'option-btn reveal-correct';
+      fbEl.className = 'feedback-msg show wrong';
+      fbEl.textContent = `✗ الإجابة الصحيحة: ${q.opts[q.ans]} — ${q.exp}`;
+    }
+  });
+
+  const scoreEl = document.getElementById('score' + unit);
+  const pct = Math.round((correct/questions.length)*100);
+  let emoji = pct >= 80 ? '🎉' : pct >= 60 ? '💪' : '📚';
+  let msg = pct >= 80 ? 'ممتاز! أنت جاهزة' : pct >= 60 ? 'كويس، راجعي أكثر' : 'راجعي هذه الوحدة مرة أخرى';
+  scoreEl.style.display = 'block';
+  scoreEl.innerHTML = `<div class="score-num" style="color:${pct>=80?'#10b981':pct>=60?'#f59e0b':'#ef4444'}">${emoji} ${correct}/${questions.length}</div><p>${msg} — ${pct}%</p>`;
+
+  updateProgress(unit);
+}
+
+// ==================== RESET QUIZ ====================
+function resetQuiz(unit) {
+  if (userAnswers[unit]) delete userAnswers[unit];
+  renderQuizzes();
+  document.getElementById('score' + unit).style.display = 'none';
+}
+
+// ==================== TOGGLE UNIT ====================
+const openedUnits = new Set();
+function toggleUnit(num) {
+  const card = document.getElementById('unit' + num);
+  card.classList.toggle('open');
+  if (card.classList.contains('open')) openedUnits.add(num);
+  updateProgress();
+}
+
+// ==================== PROGRESS ====================
+function updateProgress() {
+  const total = 8;
+  const done = openedUnits.size;
+  document.getElementById('prog-fill').style.width = (done/total*100) + '%';
+  document.getElementById('prog-txt').textContent = `${done} / ${total} وحدات`;
+}
+
+// ==================== SCROLL ====================
+function scrollToUnit(num) {
+  const card = document.getElementById('unit' + num);
+  if (!card.classList.contains('open')) { card.classList.add('open'); openedUnits.add(num); updateProgress(); }
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrolltop');
+  btn.classList.toggle('show', window.scrollY > 300);
+});
+
+renderQuizzes();
+</script>
+</body>
+</html>
